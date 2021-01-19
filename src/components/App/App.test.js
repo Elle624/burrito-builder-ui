@@ -51,5 +51,21 @@ describe('App Component', () => {
     );
   });
 
-  it('should only be able to add new order when name and at least one ingredient is selected', () => {});
+  it('should only be able to add new order when name and at least one ingredient is selected', async () => {
+    render(<App />);
+
+    userEvent.click(screen.getByText('cilantro'));
+    userEvent.click(screen.getByText('guacamole'));
+    userEvent.click(screen.getByText('Submit Order'));
+
+    await waitFor(() =>
+      expect(screen.queryByText('Elle')).not.toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getAllByText('cilantro')).toHaveLength(2)
+    );
+    await waitFor(() =>
+      expect(screen.getAllByText('guacamole')).toHaveLength(2)
+    );
+  });
 });
