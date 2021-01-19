@@ -1,55 +1,71 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class OrderForm extends Component {
-  constructor(props) {
-    super();
-    this.props = props;
-    this.state = {
-      name: '',
-      ingredients: []
-    };
-  }
+const OrderForm = () => {
+  const [name, setName] = useState('');
+  const [ingredients, setIngredients] = useState([]);
 
-
-  handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.clearInputs();
-  }
 
-  clearInputs = () => {
-    this.setState({name: '', ingredients: []});
-  }
+    clearInputs();
+  };
 
-  render() {
-    const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
-    const ingredientButtons = possibleIngredients.map(ingredient => {
-      return (
-        <button key={ingredient} name={ingredient} onClick={e => this.handleIngredientChange(e)}>
-          {ingredient}
-        </button>
-      )
-    });
+  const handleIngredientChange = (e) => {
+    e.preventDefault();
+    const updatedIngredients = [...ingredients];
+    updatedIngredients.push(e.target.value);
+    setIngredients(updatedIngredients);
+    //setIngredients((prevIng) => [...prevIng, e.target.value]);
+  };
 
+  const clearInputs = () => {
+    setName('');
+    setIngredients([]);
+  };
+
+  const possibleIngredients = [
+    'beans',
+    'steak',
+    'carnitas',
+    'sofritas',
+    'lettuce',
+    'queso fresco',
+    'pico de gallo',
+    'hot sauce',
+    'guacamole',
+    'jalapenos',
+    'cilantro',
+    'sour cream'
+  ];
+  const ingredientButtons = possibleIngredients.map((ingredient) => {
     return (
-      <form>
-        <input
-          type='text'
-          placeholder='Name'
-          name='name'
-          value={this.state.name}
-          onChange={e => this.handleNameChange(e)}
-        />
+      <button
+        key={ingredient}
+        name={ingredient}
+        value={ingredient}
+        onClick={(e) => handleIngredientChange(e)}
+      >
+        {ingredient}
+      </button>
+    );
+  });
 
-        { ingredientButtons }
+  console.log(ingredients);
 
-        <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-
-        <button onClick={e => this.handleSubmit(e)}>
-          Submit Order
-        </button>
-      </form>
-    )
-  }
-}
+  return (
+    <form>
+      <input
+        type='text'
+        placeholder='Name'
+        name='name'
+        value={name}
+        // onChange={(e) => handleNameChange(e)}
+      />
+      {ingredientButtons}
+      <p>Order: {ingredients.join(',') || 'Nothing selected'}</p>
+      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
+    </form>
+  );
+};
 
 export default OrderForm;
