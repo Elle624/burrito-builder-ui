@@ -15,15 +15,20 @@ const App = () => {
       .catch((err) => setError(`Error fetching:, ${err}`));
   };
 
-  useEffect(() => getAllOrders(), []);
+  const addNewOrder = (newOrder) => {
+    setOrders([...orders, newOrder]);
+  };
+
+  useEffect(() => getAllOrders(), [orders.length]);
+
+  console.log(orders);
 
   return (
     <main className='App'>
       <header>
         <h1>Burrito Builder</h1>
-        <OrderForm />
+        <OrderForm addNewOrder={addNewOrder} />
       </header>
-
       <Orders orders={orders} />
     </main>
   );
