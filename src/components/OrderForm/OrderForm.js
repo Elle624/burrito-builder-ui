@@ -7,7 +7,7 @@ const OrderForm = ({ addNewOrder }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name) {
+    if (name && ingredients.length) {
       const newOrder = {
         id: Date.now(),
         name,

@@ -21,8 +21,6 @@ const App = () => {
 
   useEffect(() => getAllOrders(), [orders.length]);
 
-  console.log(orders);
-
   return (
     <main className='App'>
       <header>
