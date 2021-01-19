@@ -4,13 +4,14 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import { getOrders, addOrder } from '../../apiCalls';
-import { _mockOrders, _mockNewOrder } from './_mockData';
+import { _mockOrders, _mockNewOrder, _mockUpdatedOrders } from './_mockData';
 jest.mock('../../apiCalls');
 
 describe('App Component', () => {
   beforeEach(() => {
-    addOrder.mockResolvedValueOnce(_mockNewOrder);
     getOrders.mockResolvedValue(_mockOrders);
+    addOrder.mockResolvedValue(_mockNewOrder);
+    getOrders.mockResolvedValue(_mockUpdatedOrders);
   });
 
   it('should render correctly', async () => {
@@ -33,7 +34,22 @@ describe('App Component', () => {
     );
   });
 
-  it('should be able to add new order', () => {});
+  it('should be able to add new order', async () => {
+    render(<App />);
+
+    userEvent.type(screen.getByRole('textbox'), 'Elle');
+    userEvent.click(screen.getByText('cilantro'));
+    userEvent.click(screen.getByText('guacamole'));
+    userEvent.click(screen.getByText('Submit Order'));
+
+    await waitFor(() => expect(screen.getByText('Elle')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getAllByText('cilantro')).toHaveLength(2)
+    );
+    await waitFor(() =>
+      expect(screen.getAllByText('guacamole')).toHaveLength(2)
+    );
+  });
 
   it('should only be able to add new order when name and at least one ingredient is selected', () => {});
 });
