@@ -66,7 +66,9 @@ const OrderForm = ({ addNewOrder }) => {
         onChange={(e) => setName(e.target.value)}
       />
       {ingredientButtons}
-      <p>Order: {ingredients.join(',') || 'Nothing selected'}</p>
+      <p data-testid='order-details'>
+        Order: {ingredients.join(',') || 'Nothing selected'}
+      </p>
       <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
   );
