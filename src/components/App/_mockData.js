@@ -1,0 +1,12 @@
+export const _mockOrders = {
+  orders: [
+    { id: 111, name: 'Pam', ingredients: ['beans', 'lettuce', 'carnitas'] },
+    { id: 222, name: 'Leta', ingredients: ['steak', 'pico de gallo'] }
+  ]
+};
+
+export const _mockNewOrder = {
+  id: 333,
+  name: 'Elle',
+  ingredients: ['beans', 'steak']
+};
