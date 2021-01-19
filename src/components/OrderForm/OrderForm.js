@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
+import { addOrder } from '../../apiCalls';
 
-const OrderForm = () => {
+const OrderForm = ({ addNewOrder }) => {
   const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    clearInputs();
+    if (name) {
+      const newOrder = {
+        id: Date.now(),
+        name,
+        ingredients
+      };
+      addNewOrder(newOrder);
+      addOrder(newOrder);
+      clearInputs();
+    }
   };
 
   const handleIngredientChange = (e) => {
