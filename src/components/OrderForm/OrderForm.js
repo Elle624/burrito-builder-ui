@@ -50,8 +50,6 @@ const OrderForm = () => {
     );
   });
 
-  console.log(ingredients);
-
   return (
     <form>
       <input
@@ -59,7 +57,7 @@ const OrderForm = () => {
         placeholder='Name'
         name='name'
         value={name}
-        // onChange={(e) => handleNameChange(e)}
+        onChange={(e) => setName(e.target.value)}
       />
       {ingredientButtons}
       <p>Order: {ingredients.join(',') || 'Nothing selected'}</p>
