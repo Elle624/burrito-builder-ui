@@ -21,10 +21,7 @@ const OrderForm = ({ addNewOrder }) => {
 
   const handleIngredientChange = (e) => {
     e.preventDefault();
-    const updatedIngredients = [...ingredients];
-    updatedIngredients.push(e.target.value);
-    setIngredients(updatedIngredients);
-    //setIngredients((prevIng) => [...prevIng, e.target.value]);
+    setIngredients([...ingredients, e.target.value]);
   };
 
   const clearInputs = () => {
